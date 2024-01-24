@@ -19,14 +19,14 @@ const AntdQRCode = (props: QRCodeProp) => {
     const label = props['label']
     const description = props['description']
     const value = props['value']
-    const labelHeight = label !== null ? 64*5 : 32*5
+    // const labelHeight = label !== null ? 64*5 : 32*5
 
     //state
-    const [height, setHeight] = useState(labelHeight)
+    // const [height, setHeight] = useState()
     // const [color, setColor] = useState(props.color);
 
     // component height
-    useEffect(() => Streamlit.setFrameHeight(height))
+    useEffect(() => Streamlit.setFrameHeight())
 
     //callback
     // const onChange = (text: Color, hex: string) => {

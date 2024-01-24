@@ -23,7 +23,7 @@ const AntdColorPicker = (props: ColorPickerProp) => {
     const [color, setColor] = useState(props.color);
 
     // component height
-    useEffect(() => Streamlit.setFrameHeight(height))
+    useEffect(() => Streamlit.setFrameHeight())
 
     //callback
     const onChange = (value: Color, hex: string) => {
