@@ -16,6 +16,7 @@ import {AntdTags} from "./ts/Tag";
 import AntdPagination from "./ts/Pagination";
 import AntdChip from "./ts/Chip";
 import AntdColorPicker from "./ts/ColorPicker";
+import AntdQRCode from "./ts/QRCode";
 
 //named components
 const componentsMap: any = {
@@ -37,6 +38,7 @@ const componentsMap: any = {
     'pagination': AntdPagination,
     'chip': AntdChip,
     'color_picker': AntdColorPicker,
+    'qr_code': AntdQRCode,
 }
 
 export default componentsMap

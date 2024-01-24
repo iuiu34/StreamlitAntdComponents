@@ -1,6 +1,6 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useState} from "react";
-import {QRCode, ConfigProvider} from 'antd';
+import {ConfigProvider, QRCode} from 'antd';
 import {getTheme} from "../js/utils.react"
 import {BaseProp, LabelWrap} from "./utils";
 import {Color} from "antd/es/color-picker";
@@ -18,24 +18,26 @@ const AntdQRCode = (props: QRCodeProp) => {
     const {backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
     const label = props['label']
     const description = props['description']
-    let labelHeight = label !== null ? 64 : 32
+    const value = props['value']
+    const labelHeight = label !== null ? 64*5 : 32*5
+
     //state
     const [height, setHeight] = useState(labelHeight)
-    const [color, setColor] = useState(props.color);
+    // const [color, setColor] = useState(props.color);
 
     // component height
     useEffect(() => Streamlit.setFrameHeight(height))
 
     //callback
-    const onChange = (value: Color, hex: string) => {
-        setColor(value)
-        Streamlit.setComponentValue(hex)
-    }
+    // const onChange = (text: Color, hex: string) => {
+    //     setColor(text)
+    //     Streamlit.setComponentValue(text)
+    // }
 
-    const openChange = (open: boolean) => {
-        let labelHeight = label !== null ? 64 : 32
-        setHeight(open ? 270 + labelHeight : labelHeight)
-    }
+    // const openChange = (open: boolean) => {
+    //     let labelHeight = label !== null ? 64 : 32
+    //     setHeight(open ? 270 + labelHeight : labelHeight)
+    // }
 
     return (
         <ConfigProvider
@@ -52,11 +54,11 @@ const AntdQRCode = (props: QRCodeProp) => {
                 grow={true}
                 children={
                     <QRCode
-                        onChange={onChange}
-                        value={color}
-                        defaultValue={primaryColor}
-                        // showText={label}
-                        onOpenChange={openChange}
+                        value={value}
+                        color={primaryColor}
+                        // defaultValue={primaryColor}
+                        // onChange={onChange}
+                        // onOpenChange={openChange}
                     />}/></ConfigProvider>)
 };
 

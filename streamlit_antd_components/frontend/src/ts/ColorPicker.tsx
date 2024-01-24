@@ -17,7 +17,7 @@ const AntdColorPicker = (props: ColorPickerProp) => {
     const {backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
     const label = props['label']
     const description = props['description']
-    let labelHeight = label !== null ? 64 : 32
+    const labelHeight = label !== null ? 64 : 32
     //state
     const [height, setHeight] = useState(labelHeight)
     const [color, setColor] = useState(props.color);
