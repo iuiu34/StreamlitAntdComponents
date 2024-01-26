@@ -17,6 +17,7 @@ import AntdPagination from "./ts/Pagination";
 import AntdChip from "./ts/Chip";
 import AntdColorPicker from "./ts/ColorPicker";
 import AntdQRCode from "./ts/QRCode";
+import AntdPhoneNumber from "./ts/PhoneNumber";
 
 //named components
 const componentsMap: any = {
@@ -39,6 +40,7 @@ const componentsMap: any = {
     'chip': AntdChip,
     'color_picker': AntdColorPicker,
     'qr_code': AntdQRCode,
+    'phone_number': AntdPhoneNumber,
 }
 
 export default componentsMap

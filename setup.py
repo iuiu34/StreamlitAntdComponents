@@ -15,7 +15,7 @@ def readme() -> str:
     :param font: alert font,support mantine font and str
 	:return: content of README.md
     """
-    return open(join(dirname(__file__), "readme.md")).read()
+    return open(join(dirname(__file__), "README.md")).read()
 
 
 setuptools.setup(

@@ -13,8 +13,6 @@ from .buttons import buttons
 from .cascader import cascader
 from .checkbox import checkbox
 from .chip import chip
-from .color_picker import color_picker
-from .qr_code import qr_code
 from .divider import divider
 from .menu import menu
 from .pagination import pagination
@@ -25,6 +23,11 @@ from .steps import steps
 from .switch import switch
 from .tabs import tabs
 from .tag import tags
-from .theme import theme
 from .transfer import transfer
 from .tree import tree
+
+# experimenal
+from .color_picker import color_picker as experimental_color_picker
+from .phone_number import phone_number as experimental_phone_number
+from .qr_code import qr_code as experimental_qr_code
+from .theme import theme as experimental_theme
