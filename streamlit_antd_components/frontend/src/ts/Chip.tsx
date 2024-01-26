@@ -35,7 +35,12 @@ const AntdChip = (props: ChipProp) => {
     const kv = props['kv']
     const secondaryBgColor = GetColor('--secondary-background-color')
 
-    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
+    const theme = getTheme(props);
+    const colorPrimary = theme.colorPrimary;
+    const colorText = theme.colorText;
+    const fontSize = theme.fontSize;
+    const fontFamily = theme.fontFamily;
+    const colorBgContainer = theme.colorBgContainer;
 
     // component height
     useEffect(() => Streamlit.setFrameHeight())
@@ -86,7 +91,7 @@ const AntdChip = (props: ChipProp) => {
     return <LabelWrap
         label={label}
         desc={description}
-        size={size}
+        fontSize={fontSize}
         align={align}
         children={
             <Chip.Group
@@ -100,42 +105,42 @@ const AntdChip = (props: ChipProp) => {
                             key={idx}
                             value={item.value}
                             radius={radius}
-                            size={size}
+                            size={fontSize}
                             variant={variant}
                             disabled={item.disabled}
                             styles={(theme) => ({
                                 label: {
-                                    height: getSize(size) + 16,
+                                    height: getSize(fontSize) + 16,
                                     marginBottom: 0,
-                                    color: textColor,
+                                    color: colorText,
                                     borderColor:
-                                        variant !== 'outline' ? 'transparent' : RgbaColor(textColor),
+                                        variant !== 'outline' ? 'transparent' : RgbaColor(colorText),
                                     backgroundColor: variant === 'outline' ? 'transparent' : secondaryBgColor,
                                     '&:hover': {
                                         backgroundColor:
                                             variant === 'outline' ? 'transparent' : DarkenColor(secondaryBgColor, 0.1),
                                         borderColor:
-                                            variant === 'outline' ? primaryColor : 'transparent',
+                                            variant === 'outline' ? colorPrimary : 'transparent',
                                     },
                                     '&[data-checked]:not([data-disabled])': {
                                         color:
-                                            variant === 'light' ? primaryColor : variant === 'filled' ? '#fff' : textColor
+                                            variant === 'light' ? colorPrimary : variant === 'filled' ? '#fff' : colorText
                                         ,
                                         backgroundColor:
-                                            variant === 'light' ? RgbaColor(primaryColor) :
-                                                variant === 'filled' ? primaryColor : 'transparent',
+                                            variant === 'light' ? RgbaColor(colorPrimary) :
+                                                variant === 'filled' ? colorPrimary : 'transparent',
                                         borderColor:
-                                            variant === 'outline' ? primaryColor : 'transparent',
+                                            variant === 'outline' ? colorPrimary : 'transparent',
                                     },
                                     '&[data-checked]:not([data-disabled]):hover': {
                                         backgroundColor:
-                                            variant === 'light' ? RgbaColor(primaryColor, 0.3) :
-                                                variant === 'filled' ? DarkenColor(primaryColor, 0.1) : 'transparent',
+                                            variant === 'light' ? RgbaColor(colorPrimary, 0.3) :
+                                                variant === 'filled' ? DarkenColor(colorPrimary, 0.1) : 'transparent',
                                     },
                                 },
                                 checkIcon: {
                                     color:
-                                        variant === 'filled' ? '#fff' : primaryColor
+                                        variant === 'filled' ? '#fff' : colorPrimary
                                 }
                             })}
                         >

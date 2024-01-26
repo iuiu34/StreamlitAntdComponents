@@ -20,14 +20,14 @@ const strToNode = (obj, size, variant, desc_color) => {
             obj_copy.children = obj_copy.children.map(obj_ => strToNode(obj_, size, variant, desc_color))
         }
         //icon
-        obj_copy.icon = <CustomIcon icon={icon} style={{marginRight: 10, fontSize: getSize(size) + 3}}/>
+        obj_copy.icon = <CustomIcon icon={icon} style={{marginRight: 10, fontSize: getSize(fontSize) + 3}}/>
         //add description
         if (description) {
             obj_copy.label = <div style={{lineHeight: 1.3}}>
                 <div style={{wordBreak: 'break-word'}}>{obj_copy.label}</div>
                 <div className={'menu-desc'} style={{
                     color: desc_color,
-                    fontSize: getSize(size) - 2,
+                    fontSize: getSize(fontSize) - 2,
                     wordBreak: 'break-word',
                     fontWeight: 'normal'
                 }}>{description}</div>
@@ -40,7 +40,7 @@ const strToNode = (obj, size, variant, desc_color) => {
                 <AntdTags
                     items={Array.isArray(tag) ? tag : [tag]}
                     align={'end'}
-                    size={getSize(size) - 2}
+                    size={getSize(fontSize) - 2}
                 />
             </div>
         }

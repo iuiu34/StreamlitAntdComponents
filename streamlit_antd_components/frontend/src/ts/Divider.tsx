@@ -19,7 +19,12 @@ const AntdDivider = (props: DividerProp) => {
     // @ts-ignore
     const align = {'start': 'left', 'center': 'center', 'end': 'right'}[props['align']]
     const variant = props['variant'];
-    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
+    const theme = getTheme(props);
+    const colorPrimary = theme.colorPrimary;
+    const colorText = theme.colorText;
+    const fontSize = theme.fontSize;
+    const fontFamily = theme.fontFamily;
+    const colorBgContainer = theme.colorBgContainer;
 
     // component height
     useEffect(() => Streamlit.setFrameHeight())
@@ -27,21 +32,16 @@ const AntdDivider = (props: DividerProp) => {
     return (
         <ConfigProvider
             theme={{
-                components: {
-                    Divider: {
-                        ...theme,
-                    },
-                },
-            }}
-        >
+                token: {...theme},
+            }}>
             <Divider
-                color={color == null ? RgbaColor(textColor) : color}
+                // color={color == null ? RgbaColor(colorText) : color}
                 label={icon ?
                     <span className={'d-flex align-items-center'}>
                     <CustomIcon icon={icon} style={{marginRight: 5}}/>{markdown(label)}
                 </span> : markdown(label)}
                 labelPosition={align}
-                size={size}
+                // fontSize={fontSize}
                 variant={variant}
             />
         </ConfigProvider>

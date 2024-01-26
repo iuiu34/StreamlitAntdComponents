@@ -23,7 +23,7 @@ const strToNode = (obj, size, treeIcon, desc_color) => {
             obj_copy.label = <div style={{lineHeight: 1.2, wordBreak: 'break-word', whiteSpace: 'break-spaces'}}>
                 <div>{obj_copy.label}</div>
                 <div className={'tree-desc'}
-                     style={{color: desc_color, fontSize: getSize(size) - 2}}>{description}</div>
+                     style={{color: desc_color, fontSize: getSize(fontSize) - 2}}>{description}</div>
             </div>
         }
         //add tag
@@ -33,7 +33,7 @@ const strToNode = (obj, size, treeIcon, desc_color) => {
                 <AntdTags
                     items={Array.isArray(tag) ? tag : [tag]}
                     align={'end'}
-                    size={getSize(size) - 4}
+                    size={getSize(fontSize) - 4}
                 />
             </div>
         }
@@ -55,7 +55,7 @@ const strToNode = (obj, size, treeIcon, desc_color) => {
                             colorTextLightSolid: 'var(--text-color)',
                             borderRadius: 6,
                             controlHeight: 12,
-                            fontSize: getSize(size) - 4,
+                            fontSize: getSize(fontSize) - 4,
                         },
                     },
                 }}

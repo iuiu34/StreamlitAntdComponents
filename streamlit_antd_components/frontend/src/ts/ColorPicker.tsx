@@ -14,13 +14,18 @@ interface ColorPickerProp extends BaseProp {
 
 const AntdColorPicker = (props: ColorPickerProp) => {
     //get data
-    const {backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
+    const theme = getTheme(props);
+    const colorPrimary = theme.colorPrimary;
+    const colorText = theme.colorText;
+    const fontSize = theme.fontSize;
+    const fontFamily = theme.fontFamily;
+    const colorBgContainer = theme.colorBgContainer;
     const label = props['label']
     const description = props['description']
     const labelHeight = label !== null ? 64 : 32
     //state
     const [height, setHeight] = useState(labelHeight)
-    const [color, setColor] = useState(props.color);
+    const [color, setColor] = useState(colorPrimary);
 
     // component height
     useEffect(() => Streamlit.setFrameHeight())
@@ -39,11 +44,7 @@ const AntdColorPicker = (props: ColorPickerProp) => {
     return (
         <ConfigProvider
             theme={{
-                components: {
-                    ColorPicker: {
-                        ...theme,
-                    }
-                }
+                token: {...theme},
             }}>
             <LabelWrap
                 label={label}
@@ -53,7 +54,7 @@ const AntdColorPicker = (props: ColorPickerProp) => {
                     <ColorPicker
                         onChange={onChange}
                         value={color}
-                        defaultValue={primaryColor}
+                        defaultValue={colorPrimary}
                         // showText={label}
                         onOpenChange={openChange}
                     />}/></ConfigProvider>)

@@ -23,7 +23,12 @@ interface TagsProp extends BaseProp {
 
 const AntdTag = (props: tagProp) => {
     //get data
-    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
+    const theme = getTheme(props);
+const colorPrimary = theme.colorPrimary;
+const colorText = theme.colorText;
+const fontSize = theme.fontSize;
+const fontFamily=theme.fontFamily;
+const colorBgContainer=theme.colorBgContainer;
 
     const label = props['label'];
     const radius = props['radius'] || 'md';
@@ -37,25 +42,26 @@ const AntdTag = (props: tagProp) => {
     return (
         <ConfigProvider
             theme={{
+                token: {...theme},
                 components: {
                     Tag: {
                         defaultColor: 'var(--text-color)',
-                        defaultBg: RgbaColor(textColor, 0.05),
+                        defaultBg: RgbaColor(colorText, 0.05),
                     },
                 },
             }}
         >
             <Tag
-                color={color}
+                color={colorPrimary}
                 icon={<CustomIcon icon={icon} style={{marginRight: label ? 5 : 0}}/>}
                 closeIcon={closable}
                 bordered={bordered}
                 style={{
                     margin: 0,
                     borderRadius: getSize(radius, MartineRadiusSize),
-                    fontSize: getSize(size),
-                    paddingInline: getSize(size) * 0.5,
-                    lineHeight: `${getSize(size) * 1.1}px`,
+                    fontSize: getSize(fontSize),
+                    paddingInline: getSize(fontSize) * 0.5,
+                    lineHeight: `${getSize(fontSize) * 1.1}px`,
                 }}
             >
                 {link ?
@@ -68,7 +74,12 @@ const AntdTag = (props: tagProp) => {
 
 const AntdTags = (props: TagsProp) => {
     //get data
-    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
+    const theme = getTheme(props);
+const colorPrimary = theme.colorPrimary;
+const colorText = theme.colorText;
+const fontSize = theme.fontSize;
+const fontFamily=theme.fontFamily;
+const colorBgContainer=theme.colorBgContainer;
 
     const items = props['items'];
     const align = props['align'];
@@ -81,13 +92,14 @@ const AntdTags = (props: TagsProp) => {
     let tagStyle = `
         .anticon.anticon-close.ant-tag-close-icon{
             color: inherit;
-            font-size: ${getSize(size) - 4}px;
+            font-size: ${getSize(fontSize) - 4}px;
         }
     `
     insertStyle('sac.tags.style', tagStyle)
 
     return <ConfigProvider
         theme={{
+            token: {...theme},
             components: {
                 Tag: {
                     ...theme,
@@ -109,9 +121,9 @@ const AntdTags = (props: TagsProp) => {
             classNames={{item: 'd-flex align-items-center'}}
         >
             {items.map((item: any) => {
-                item.size = item.size || size
+                item.size = item.size || fontSize
                 item.radius = item.radius || radius
-                item.color = item.color || color
+                item.color = item.color || colorPrimary
                 return AntdTag(item)
             })}
         </Space>

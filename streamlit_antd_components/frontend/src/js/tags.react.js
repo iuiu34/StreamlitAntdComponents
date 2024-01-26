@@ -17,7 +17,7 @@ const strToNode = (obj, size) => {
                 <AntdTags
                     items={Array.isArray(tag) ? tag : [tag]}
                     align={'end'}
-                    size={getSize(size) - 4}
+                    size={getSize(fontSize) - 4}
                     style={{lineHeight: 1.2}}
                 />
             </div>

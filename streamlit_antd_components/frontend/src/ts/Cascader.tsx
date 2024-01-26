@@ -25,7 +25,12 @@ interface CascaderProp extends BaseProp {
 
 const AntdCascader = (props: CascaderProp) => {
     //get data
-    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
+    const theme = getTheme(props);
+const colorPrimary = theme.colorPrimary;
+const colorText = theme.colorText;
+const fontSize = theme.fontSize;
+const fontFamily=theme.fontFamily;
+const colorBgContainer=theme.colorBgContainer;
 
     const label = props['label']
     const description = props['description']
@@ -44,21 +49,21 @@ const AntdCascader = (props: CascaderProp) => {
     // const font = getFont(props)
     // const background_color = getBackgroundColor(props)
     // const size = getSize(props)
-    // const primaryColor = GetColor(color == null ? '--primary-color' : color)
-    // const textColor = GetColor('--text-color')
+    // const colorPrimary = GetColor(color == null ? '--primary-color' : color)
+    // const colorText = GetColor('--text-color')
 
     // load css
     let borderStyle = `
         /*dropdown border*/
         .ant-select-dropdown {
-            border: 1px solid ${RgbaColor(textColor, 0.1)};
+            border: 1px solid ${RgbaColor(colorText, 0.1)};
         }
         /*vertical border*/
         ul.ant-cascader-menu:not(:last-child) {
-            border-inline-end: 1px solid ${RgbaColor(textColor, 0.1)} !important;
+            border-inline-end: 1px solid ${RgbaColor(colorText, 0.1)} !important;
         }
         .ant-cascader-menu-item-active .ant-cascader-menu-item-content{
-            color:${primaryColor} !important
+            color:${colorPrimary} !important
         }
     `
     let checkboxStyle = `
@@ -97,7 +102,7 @@ const AntdCascader = (props: CascaderProp) => {
     const notFoundContent = () => {
         return <div style={{
             textAlign: 'center',
-            color: RgbaColor(textColor, 0.5),
+            color: RgbaColor(colorText, 0.5),
             padding: '70px 0'
         }}>No results</div>
     }
@@ -123,15 +128,16 @@ const AntdCascader = (props: CascaderProp) => {
     return (
         <ConfigProvider
             theme={{
+                token: {...theme},
                 components: {
                     Cascader: {
                         ...theme,
                         colorBgContainer: 'var(--background-color)',
                         controlItemBgHover: 'var(--secondary-background-color)',
-                        controlItemBgActive: RgbaColor(primaryColor),
-                        colorPrimaryHover: primaryColor,
-                        colorTextDisabled: RgbaColor(textColor, 0.5),
-                        colorBorder: RgbaColor(textColor, 0.3),
+                        controlItemBgActive: RgbaColor(colorPrimary),
+                        colorPrimaryHover: colorPrimary,
+                        colorTextDisabled: RgbaColor(colorText, 0.5),
+                        colorBorder: RgbaColor(colorText, 0.3),
 
                     },
                     Select: {
@@ -139,9 +145,9 @@ const AntdCascader = (props: CascaderProp) => {
                         colorBgContainer: 'var(--secondary-background-color)',
                         colorBgElevated: 'var(--background-color)',
                         colorBorder: 'var(--background-color) !important',
-                        colorFillSecondary: primaryColor,
+                        colorFillSecondary: colorPrimary,
                         colorText: 'var(--text-color)',
-                        colorTextPlaceholder: RgbaColor(textColor, 0.5),
+                        colorTextPlaceholder: RgbaColor(colorText, 0.5),
                         colorIcon: '#fff',
                         colorIconHover: '#fff',
                         controlHeight: 40,

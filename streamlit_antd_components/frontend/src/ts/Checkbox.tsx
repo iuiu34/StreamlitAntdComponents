@@ -34,7 +34,12 @@ const AntdCheckbox = (props: CheckboxProp) => {
     const kv = props['kv']
     const allIndex = disabled ? [] : items.filter(item => !item.disabled).map(item => item.value)
 
-    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
+    const theme = getTheme(props);
+const colorPrimary = theme.colorPrimary;
+const colorText = theme.colorText;
+const fontSize = theme.fontSize;
+const fontFamily=theme.fontFamily;
+const colorBgContainer=theme.colorBgContainer;
 
 
     // component height
@@ -124,15 +129,15 @@ const AntdCheckbox = (props: CheckboxProp) => {
     return (
         <ConfigProvider
             theme={{
+                token: {...theme},
                 components: {
                     Checkbox: {
-                        ...theme,
                         colorText: '--text-color',
                         colorPrimaryHover: 'transform',
-                        colorTextDisabled: RgbaColor(textColor, 0.5),
-                        colorBgContainerDisabled: RgbaColor(textColor),
-                        colorBorder: RgbaColor(textColor, 0.3),
-                        controlInteractiveSize: 2 * getSize(size) - 10,
+                        colorTextDisabled: RgbaColor(colorText, 0.5),
+                        colorBgContainerDisabled: RgbaColor(colorText),
+                        colorBorder: RgbaColor(colorText, 0.3),
+                        controlInteractiveSize: 2 * getSize(fontSize) - 10,
                     },
                 },
             }}
@@ -141,7 +146,7 @@ const AntdCheckbox = (props: CheckboxProp) => {
                 label={label}
                 desc={description}
                 align={align}
-                size={size}
+                fontSize={fontSize}
                 children={
                     <div className={`d-flex flex-row align-items-start`}>
                         {checkAllElement(check_all)}

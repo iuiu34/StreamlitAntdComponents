@@ -33,9 +33,14 @@ interface MenuProp extends BaseProp {
 
 const AntdMenu = (props: MenuProp) => {
     //get data
-    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
+    const theme = getTheme(props);
+const colorPrimary = theme.colorPrimary;
+const colorText = theme.colorText;
+const fontSize = theme.fontSize;
+const fontFamily=theme.fontFamily;
+const colorBgContainer=theme.colorBgContainer;
 
-    const items = strToNode(props.items, props.size, props.variant, RgbaColor(textColor, 0.5))
+    const items = strToNode(props.items, props.font_size, props.variant, RgbaColor(colorText, 0.5))
     const dsk = reindex(props.index)
     const openIndex = reindex(props.open_index)
     const openAll = props['open_all']
@@ -46,7 +51,7 @@ const AntdMenu = (props: MenuProp) => {
     const kv = props['kv']
     const dok = openAll ? getCollapseKeys(items) : openIndex ? openIndex : dsk && getParentKeys(dsk, items)
 
-    const primaryLightColor = RgbaColor(primaryColor)
+    const primaryLightColor = RgbaColor(colorPrimary)
     const bgColor = GetColor('--background-color')
 
 
@@ -56,7 +61,7 @@ const AntdMenu = (props: MenuProp) => {
         color: ${variant === 'filled' ? RgbaColor('#fff', 0.55) : 'none'} !important
     }
     .ant-menu-submenu-selected > .ant-menu-submenu-title{
-        color:${primaryColor} !important
+        color:${colorPrimary} !important
     }
     .ant-menu-item-group-title{
         margin: 4px !important;
@@ -66,8 +71,8 @@ const AntdMenu = (props: MenuProp) => {
         padding-left: ${2 * indent}px !important
     }
     .ant-menu-item.ant-menu-item-selected{
-        border-left:${variant === 'left-bar' ? `4px solid ${primaryColor}` : 'unset'} !important;
-        border-right:${variant === 'right-bar' ? `4px solid ${primaryColor}` : 'unset'} !important;
+        border-left:${variant === 'left-bar' ? `4px solid ${colorPrimary}` : 'unset'} !important;
+        border-right:${variant === 'right-bar' ? `4px solid ${colorPrimary}` : 'unset'} !important;
     }
     .ant-menu-item{
         border-left-style:${variant === 'left-bar' ? 'solid' : 'unset'} !important;
@@ -76,12 +81,12 @@ const AntdMenu = (props: MenuProp) => {
         border-right-style:${variant === 'right-bar' ? 'solid' : 'unset'} !important;
         border-right-color:${variant === 'right-bar' ? 'transparent' : 'unset'} !important;
         border-right-width:${variant === 'right-bar' ? `4px` : 'unset'} !important;
-        padding-top: ${getSize(size) * 0.5}px;
-        padding-bottom: ${getSize(size) * 0.5}px;
+        padding-top: ${getSize(fontSize) * 0.5}px;
+        padding-bottom: ${getSize(fontSize) * 0.5}px;
     }
     .ant-menu-submenu-title {
-        padding-top: ${getSize(size) * 0.5}px;
-        padding-bottom: ${getSize(size) * 0.5}px;
+        padding-top: ${getSize(fontSize) * 0.5}px;
+        padding-bottom: ${getSize(fontSize) * 0.5}px;
     }
     `
     insertStyle(`sac.menu.style`, textStyle)
@@ -130,22 +135,22 @@ const AntdMenu = (props: MenuProp) => {
     return (
         <ConfigProvider
             theme={{
+                token: {...theme},
                 components: {
                     Menu: {
-                        ...theme,
                         itemBorderRadius: variant === 'left-bar' || variant === 'right-bar' ? 0 : 8,
                         itemColor: 'var(--text-color)',
-                        groupTitleColor: RgbaColor(textColor, 0.5),
-                        itemDisabledColor: RgbaColor(textColor, 0.5),
+                        groupTitleColor: RgbaColor(colorText, 0.5),
+                        itemDisabledColor: RgbaColor(colorText, 0.5),
                         itemHoverColor: 'var(--text-color)',
-                        itemHoverBg: RgbaColor(textColor),
-                        itemActiveBg: RgbaColor(textColor, 0.25),
-                        itemSelectedColor: variant === 'filled' ? '#fff' : primaryColor,
-                        itemSelectedBg: variant === 'filled' ? primaryColor : variant === 'subtle' ? bgColor : primaryLightColor,
+                        itemHoverBg: RgbaColor(colorText),
+                        itemActiveBg: RgbaColor(colorText, 0.25),
+                        itemSelectedColor: variant === 'filled' ? '#fff' : colorPrimary,
+                        itemSelectedBg: variant === 'filled' ? colorPrimary : variant === 'subtle' ? bgColor : primaryLightColor,
                         subMenuItemBg: bgColor,
                         itemBg: bgColor,
-                        colorSplit: RgbaColor(textColor),
-                        itemHeight: getSize(size) + 5,
+                        colorSplit: RgbaColor(colorText),
+                        itemHeight: getSize(fontSize) + 5,
                     },
                 },
             }}

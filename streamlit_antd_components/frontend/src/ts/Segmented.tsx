@@ -26,7 +26,12 @@ interface SegmentedProp extends BaseProp {
 
 const AntdSegmented = (props: SegmentedProp) => {
     //get data
-    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
+    const theme = getTheme(props);
+const colorPrimary = theme.colorPrimary;
+const colorText = theme.colorText;
+const fontSize = theme.fontSize;
+const fontFamily=theme.fontFamily;
+const colorBgContainer=theme.colorBgContainer;
 
     const items = strToNode(props['items'])
     const index = String(props['index'])
@@ -75,30 +80,30 @@ const AntdSegmented = (props: SegmentedProp) => {
     return <LabelWrap
         label={label}
         desc={description}
-        size={size}
+        fontSize={fontSize}
         align={align}
         grow={grow}
         children={
             <SegmentedControl
-                color={color}
+                color={colorPrimary}
                 data={items}
                 defaultValue={index}
                 onChange={onChange}
                 value={value}
                 fullWidth={grow}
                 disabled={disabled}
-                size={typeof (size) == 'number' ? 'md' : size}
+                size={typeof (fontSize) == 'number' ? 'md' : fontSize}
                 radius={radius}
                 orientation={direction}
                 readOnly={readonly}
                 className={'d-flex flex-wrap'}
                 styles={(theme) => ({
                     root: {
-                        backgroundColor: backgroundColor == null ? 'var(--secondary-background-color)' :
-                            Object.keys(theme.colors).indexOf(backgroundColor) !== -1 ? theme.colors[backgroundColor][1] : backgroundColor,
+                        backgroundColor: colorBgContainer == null ? 'var(--secondary-background-color)' :
+                            Object.keys(theme.colors).indexOf(colorBgContainer) !== -1 ? theme.colors[colorBgContainer][1] : colorBgContainer,
                     },
                     label: {
-                        fontSize: typeof (size) == 'number' ? size : undefined,
+                        fontSize: typeof (fontSize) == 'number' ? fontSize : undefined,
                         display: "flex", alignItems: 'center', justifyContent: 'center',
                         color: 'var(--text-color)',
                         marginBottom: 0,
@@ -113,7 +118,7 @@ const AntdSegmented = (props: SegmentedProp) => {
                         },
                     },
                     indicator: {
-                        backgroundColor: primaryColor,
+                        backgroundColor: colorPrimary,
                     },
                     control: {
                         '&:not(:first-of-type)': {

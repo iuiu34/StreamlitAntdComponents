@@ -30,7 +30,12 @@ interface TransferProp extends BaseProp {
 
 const AntdTransfer = (props: TransferProp) => {
     //get data
-    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
+    const theme = getTheme(props);
+const colorPrimary = theme.colorPrimary;
+const colorText = theme.colorText;
+const fontSize = theme.fontSize;
+const fontFamily=theme.fontFamily;
+const colorBgContainer=theme.colorBgContainer;
 
     const label = props['label']
     const description = props['description']
@@ -80,11 +85,7 @@ const AntdTransfer = (props: TransferProp) => {
         return (
             <ConfigProvider
                 theme={{
-                    components: {
-                        Button: {
-                            ...theme,
-                        }
-                    }
+                    token: {...theme}
                 }}
             >
                 <Button size="small" type={'primary'} style={{float: `${float}`, margin: 5}} onClick={reset}
@@ -100,7 +101,7 @@ const AntdTransfer = (props: TransferProp) => {
 
     let textStyle = `
     .ant-transfer-list-content-item-remove:hover{
-        color: ${primaryColor} !important;
+        color: ${colorPrimary} !important;
     }
     `
     insertStyle('sac.transfer.style', textStyle)
@@ -108,47 +109,48 @@ const AntdTransfer = (props: TransferProp) => {
     return (
         <ConfigProvider
             theme={{
+                token: {...theme},
                 components: {
                     Transfer: {
                         colorBgContainer: 'transform',
-                        colorBorder: RgbaColor(textColor),
+                        colorBorder: RgbaColor(colorText),
                         colorText: 'var(--text-color)',
-                        colorTextDisabled: RgbaColor(textColor, 0.5),
-                        controlItemBgHover: RgbaColor(textColor),
+                        colorTextDisabled: RgbaColor(colorText, 0.5),
+                        controlItemBgHover: RgbaColor(colorText),
                         controlItemBgActive: 'transform',
                         controlItemBgActiveHover: 'transform',
                         fontFamily: 'var(--font)',
                     },
                     Button: {
-                        colorPrimary: primaryColor,
-                        colorPrimaryHover: primaryColor,
-                        colorPrimaryActive: DarkenColor(primaryColor, 0.1),
-                        colorTextDisabled: RgbaColor(textColor, 0.5),
-                        colorBgContainerDisabled: RgbaColor(textColor, 0.1),
+                        colorPrimary: colorPrimary,
+                        colorPrimaryHover: colorPrimary,
+                        colorPrimaryActive: DarkenColor(colorPrimary, 0.1),
+                        colorTextDisabled: RgbaColor(colorText, 0.5),
+                        colorBgContainerDisabled: RgbaColor(colorText, 0.1),
                     },
                     Checkbox: {
-                        colorPrimary: primaryColor,
-                        colorPrimaryActive: primaryColor,
-                        colorPrimaryHover: primaryColor,
+                        colorPrimary: colorPrimary,
+                        colorPrimaryActive: colorPrimary,
+                        colorPrimaryHover: colorPrimary,
                         colorBgContainer: 'transform',
-                        colorBorder: RgbaColor(textColor, 0.3),
+                        colorBorder: RgbaColor(colorText, 0.3),
                     },
                     Input: {
                         colorBgContainer: 'inherit',
-                        colorBorder: RgbaColor(textColor),
-                        colorPrimaryHover: primaryColor,
-                        activeBorderColor: primaryColor,
+                        colorBorder: RgbaColor(colorText),
+                        colorPrimaryHover: colorPrimary,
+                        activeBorderColor: colorPrimary,
                         controlOutlineWidth: 0,
-                        colorTextPlaceholder: RgbaColor(textColor, 0.5),
+                        colorTextPlaceholder: RgbaColor(colorText, 0.5),
                     },
                     Pagination: {
                         colorText: 'var(--text-color)',
                         colorBgContainer: 'inherit',
-                        colorBorder: RgbaColor(textColor),
-                        colorPrimary: primaryColor,
-                        colorPrimaryHover: primaryColor,
+                        colorBorder: RgbaColor(colorText),
+                        colorPrimary: colorPrimary,
+                        colorPrimaryHover: colorPrimary,
                         controlOutlineWidth: 0,
-                        colorTextDisabled: RgbaColor(textColor)
+                        colorTextDisabled: RgbaColor(colorText)
                     },
                     Dropdown: {
                         colorBgElevated: GetColor('--background-color'),
@@ -157,7 +159,7 @@ const AntdTransfer = (props: TransferProp) => {
                         boxShadowSecondary: `0 0 10px ${secondaryBgColor}, 0 0 6px ${secondaryBgColor}`,
                     },
                     Empty: {
-                        colorTextDisabled: RgbaColor(textColor, 0.3),
+                        colorTextDisabled: RgbaColor(colorText, 0.3),
                     }
                 },
             }}

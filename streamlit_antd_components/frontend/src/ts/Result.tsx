@@ -27,7 +27,7 @@ const AntdResult = (props: ResultProp) => {
     }
     // @ts-ignore
     const color = colorMap[status]
-    const textColor = GetColor('--text-color')
+    const colorText = GetColor('--text-color')
     // component height
     useEffect(() => Streamlit.setFrameHeight())
 
@@ -55,10 +55,11 @@ const AntdResult = (props: ResultProp) => {
     return (
         <ConfigProvider
             theme={{
+                // token: {...theme},
                 components: {
                     Result: {
                         colorTextHeading: 'var(--text-color)',
-                        colorTextDescription: RgbaColor(textColor, 0.5),
+                        colorTextDescription: RgbaColor(colorText, 0.5),
                         iconFontSize: 72,
                         extraMargin: 0,
                         colorInfo: colorMap.info,
@@ -67,7 +68,7 @@ const AntdResult = (props: ResultProp) => {
                         colorError: colorMap.error,
                     },
                     Empty: {
-                        colorText: RgbaColor(textColor, 0.5),
+                        colorText: RgbaColor(colorText, 0.5),
                     }
                 },
             }}

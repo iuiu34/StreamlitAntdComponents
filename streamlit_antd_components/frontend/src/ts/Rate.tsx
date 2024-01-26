@@ -18,7 +18,12 @@ interface RateProp extends BaseProp {
 
 const AntdRate = (props: RateProp) => {
     //get data
-    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
+    const theme = getTheme(props);
+const colorPrimary = theme.colorPrimary;
+const colorText = theme.colorText;
+const fontSize = theme.fontSize;
+const fontFamily=theme.fontFamily;
+const colorBgContainer=theme.colorBgContainer;
 
     const label = props['label'];
     const description = props['description'];
@@ -40,10 +45,10 @@ const AntdRate = (props: RateProp) => {
     return (
         <ConfigProvider
             theme={{
+                token: {...theme},
                 components: {
                     Rate: {
-                        ...theme,
-                        colorFillContent: RgbaColor(textColor, 0.2),
+                        colorFillContent: RgbaColor(colorText, 0.2),
                     },
                 },
             }}
@@ -52,15 +57,15 @@ const AntdRate = (props: RateProp) => {
                 label={label}
                 desc={description}
                 align={align}
-                size={size}
+                fontSize={fontSize}
                 children={
                     <Rate
                         defaultValue={value}
                         count={count}
                         character={symbol !== null ? symbol : <StarFilled/>}
                         allowHalf={half}
-                        style={{fontSize: typeof (size) == 'string' ? sizeMap[size] : size, color: primaryColor}}
-                            onChange={onChange}
+                        style={{fontSize: typeof (fontSize) == 'string' ? sizeMap[fontSize] : fontSize, color: colorPrimary}}
+                        onChange={onChange}
                     />
                 }
             />

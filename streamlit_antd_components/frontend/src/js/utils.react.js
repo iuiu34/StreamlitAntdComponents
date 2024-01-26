@@ -42,20 +42,20 @@ const getSize = (size, base = MartineFontSize) => {
 
 
 const getTheme = (props) => {
-    const color = props['color']
-    const font = props['font'] != null ? props['font'] : 'inherit'
-    const backgroundColor = props['background_color'] != null ? props['background_color'] : 'transparent'
-    const size = getSize(props['size'] != null ? props['size'] : 'md')
-    const primaryColor = GetColor(color == null ? '--primary-color' : color)
-    const textColor = GetColor('--text-color')
+    const fontFamily = props['font_family'] != null ? props['font_family'] : 'inherit'
+    const fontSize = getSize(props['font_size'] != null ? props['font_size'] : 'md')
+    const backgroundColor = GetColor(props['background_color'] != null ? props['background_color'] : 'transparent')
+    const colorPrimary = GetColor(props['primary_color'] == null ? '--primary-color' : props['primary_color'])
+    const colorText = GetColor(props['text_color'] == null ? '--text-color' : props['text_color'])
+
     const theme = {
-        colorPrimary: color,
-        colorText: textColor,
-        fontSize: size,
-        fontFamily: font,
+        colorPrimary: colorPrimary,
+        colorText: colorText,
+        fontSize: fontSize,
+        fontFamily: fontFamily,
         colorBgContainer: backgroundColor,
     }
-    return {color, font, backgroundColor, size, primaryColor, textColor, theme}
+    return theme
 }
 
 const GetColor = (color) => {
@@ -109,8 +109,8 @@ const insertStyle = (id, style) => {
 }
 
 const insertScrollbarStyle = () => {
-    const textColor = GetColor('--text-color')
-    let scrollBarColor = RgbaColor(textColor, 0.4)
+    const colorText = GetColor('--text-color')
+    let scrollBarColor = RgbaColor(colorText, 0.4)
     let style = `
         ::-webkit-scrollbar {
             height: 6px;

@@ -23,7 +23,12 @@ interface SwitchProp extends BaseProp {
 
 const AntdSwitch = (props: SwitchProp) => {
     //get data
-    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
+    const theme = getTheme(props);
+const colorPrimary = theme.colorPrimary;
+const colorText = theme.colorText;
+const fontSize = theme.fontSize;
+const fontFamily=theme.fontFamily;
+const colorBgContainer=theme.colorBgContainer;
 
     const label = props['label']
     const value = props['value']
@@ -37,7 +42,7 @@ const AntdSwitch = (props: SwitchProp) => {
     const radius = props['radius']
     const disabled = props['disabled']
     const key = props['key']
-    const secondaryBgColor = GetColor(offColor == null ? RgbaColor(textColor) : offColor)
+    const secondaryBgColor = GetColor(offColor == null ? RgbaColor(colorText) : offColor)
 
     const [checked, setChecked] = useState(value)
 
@@ -73,7 +78,7 @@ const AntdSwitch = (props: SwitchProp) => {
                 onLabel={onLabel}
                 offLabel={offLabel}
                 disabled={disabled}
-                size={size}
+                size={fontSize}
                 checked={checked}
                 onChange={onChange}
                 radius={radius}
@@ -83,17 +88,17 @@ const AntdSwitch = (props: SwitchProp) => {
                         marginBottom: 0,
                     },
                     description: {
-                        color: RgbaColor(textColor, 0.5)
+                        color: RgbaColor(colorText, 0.5)
                     },
                     trackLabel: {
-                        fontSize: getSize(size) - 2,
+                        fontSize: getSize(fontSize) - 2,
                         color: '#fff',
                     },
                     track: {
                         cursor: 'pointer',
                         'input:checked+&': !disabled ? {
-                            backgroundColor: primaryColor,
-                            borderColor: primaryColor,
+                            backgroundColor: colorPrimary,
+                            borderColor: colorPrimary,
                         } : {},
                         backgroundColor: secondaryBgColor,
                         borderColor: 'transparent',

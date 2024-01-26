@@ -28,11 +28,13 @@ interface TreeProp extends BaseProp {
 
 const AntdTree = (props: TreeProp) => {
     //get data
-    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
-
+    const theme = getTheme(props);
+    const fontSize = theme.fontSize
+    const colorPrimary = theme.colorPrimary
+    const colorText = theme.colorText
     const label = props['label']
     const description = props['description']
-    const items = strToNode(props.items, size, props.icon, RgbaColor(textColor, 0.5))
+    const items = strToNode(props.items, fontSize, props.icon, RgbaColor(colorText, 0.5))
     const dsk = reindex(props.index, false)
     const openIndex = reindex(props.open_index, false)
     const openAll = props['open_all']
@@ -45,7 +47,7 @@ const AntdTree = (props: TreeProp) => {
     const return_index = props['return_index']
     const kv = props['kv']
     const dok = openAll ? getCollapseKeys(items) : openIndex ? openIndex : dsk && getParentKeys(dsk, items)
-    const primaryLightColor = RgbaColor(primaryColor)
+    const primaryLightColor = RgbaColor(colorPrimary)
 
     //state
     const [value, setValue] = useState(dsk)
@@ -55,13 +57,13 @@ const AntdTree = (props: TreeProp) => {
 
     const textStyle = `
     span.ant-tree-node-content-wrapper.ant-tree-node-selected {
-        color: ${primaryColor};
+        color: ${colorPrimary};
     }
     .ant-tree-switcher-icon {
-        font-size: ${getSize(size) - 2}px !important;
+        font-size: ${getSize(fontSize) - 2}px !important;
     }
     .ant-tree-title{
-        line-height:${getSize(size) + 2}px !important
+        line-height:${getSize(fontSize) + 2}px !important
     }
     .ant-tree-checkbox-indeterminate .ant-tree-checkbox-inner:after{
         width:50% !important;
@@ -89,16 +91,16 @@ const AntdTree = (props: TreeProp) => {
     return (
         <ConfigProvider
             theme={{
+                token: {...theme},
                 components: {
                     Tree: {
-                        ...theme,
-                        colorPrimaryHover: primaryColor,
+                        colorPrimaryHover: colorPrimary,
                         colorBgContainer: 'transform',
-                        colorTextDisabled: RgbaColor(textColor, 0.5),
-                        controlItemBgHover: RgbaColor(textColor),
+                        colorTextDisabled: RgbaColor(colorText, 0.5),
+                        controlItemBgHover: RgbaColor(colorText),
                         controlItemBgActive: primaryLightColor,
-                        controlInteractiveSize: getSize(size) + 2,
-                        colorBorder: RgbaColor(textColor, 0.4),
+                        controlInteractiveSize: getSize(fontSize) + 2,
+                        colorBorder: RgbaColor(colorText, 0.4),
                     },
                 },
             }}
@@ -106,7 +108,7 @@ const AntdTree = (props: TreeProp) => {
             <LabelWrap
                 label={label}
                 desc={description}
-                size={size}
+                fontSize={fontSize}
                 align={align}
                 children={
                     <Tree

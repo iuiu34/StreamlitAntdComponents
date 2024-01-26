@@ -24,7 +24,12 @@ const AntdAlert = (props: AlertProp) => {
     const icon = props['icon']
     const closable = props['closable']
     const banner = props['banner']
-    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
+    const theme = getTheme(props);
+const colorPrimary = theme.colorPrimary;
+const colorText = theme.colorText;
+const fontSize = theme.fontSize;
+const fontFamily=theme.fontFamily;
+const colorBgContainer=theme.colorBgContainer;
 
     const colorList: any = {
         'info': {'primary': 'rgb(0, 66, 128)', 'lighten': 'rgba(28, 131, 225, 0.1)'},
@@ -59,11 +64,11 @@ const AntdAlert = (props: AlertProp) => {
         }
         .ant-alert.ant-alert-${element} .anticon.anticon-close{
             color: ${variant === 'filled' ? '#fff' : primary};
-            font-size: ${getSize(size) * 0.8}px;
+            font-size: ${getSize(fontSize) * 0.8}px;
         }
         .ant-alert-${element} .ant-alert-icon{
             color: ${variant === 'filled' ? '#fff' : primary};
-            font-size: ${getSize(size) + 8}px;
+            font-size: ${getSize(fontSize) + 8}px;
         }
         .ant-alert{
             border: ${variant === 'outline' ? `1px solid ${primary}` : 0} !important;
@@ -75,11 +80,11 @@ const AntdAlert = (props: AlertProp) => {
             color: ${variant === 'filled' ? '#fff' : GetColor('--text-color')} !important;
         }
         .ant-alert-message{
-            font-size:${getSize(size)}px !important;
+            font-size:${getSize(fontSize)}px !important;
         }
         `
     }
-    insertStyle(`sac.alert.style`, getStyle(color, size))
+    insertStyle(`sac.alert.style`, getStyle(colorPrimary, fontSize))
 
     const getPlay = (b: any) => {
         return typeof (b) === 'boolean' ? b : b['play']
@@ -112,17 +117,14 @@ const AntdAlert = (props: AlertProp) => {
     return (
         <ConfigProvider
             theme={{
-                components: {
-                    Alert: {
-                        ...theme
-                    },
-                },
+                token: {...theme}
+
             }}
         >
             <Alert
                 message={customMarquee(messageBanner, message)}
                 description={description == null ? undefined : customMarquee(descriptionBanner, description)}
-                type={Object.keys(colorList).indexOf(color) !== -1 ? color : 'info'}
+                type={Object.keys(colorList).indexOf(colorPrimary) !== -1 ? colorPrimary : 'info'}
                 showIcon={typeof (icon) === 'boolean' ? icon : true}
                 closable={closable}
                 banner={totalBanner}

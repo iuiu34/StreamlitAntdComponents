@@ -13,6 +13,7 @@
     "bootstrap-icons": "^1.10.5",
     "npm-watch": "^0.11.0",
     "react": "^16.13.1",
+    "react-antdown": "^1.0.11",
     "react-dom": "^16.13.1",
     "react-fast-marquee": "^1.6.0",
     "react-markdown": "8.0.7",

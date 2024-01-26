@@ -21,9 +21,14 @@ interface TabsProp extends BaseProp {
 
 const AntdTabs = (props: TabsProp) => {
     //get data
-    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
+    const theme = getTheme(props);
+    const colorPrimary = theme.colorPrimary;
+    const colorText = theme.colorText;
+    const fontSize = theme.fontSize;
+    const fontFamily = theme.fontFamily;
+    const colorBgContainer = theme.colorBgContainer;
 
-    const items = strToNode(props['items'], size)
+    const items = strToNode(props['items'], fontSize)
     const index = props['index']
     const align = props['align']
     const position = props['position']
@@ -32,7 +37,7 @@ const AntdTabs = (props: TabsProp) => {
     const grow = props['use_container_width']
     const return_index = props['return_index']
     const kv = props['kv']
-    const borderColor = RgbaColor(textColor, 0.1)
+    const borderColor = RgbaColor(colorText, 0.1)
 
     const [activeKey, setActiveKey] = useState(index)
 
@@ -61,10 +66,10 @@ const AntdTabs = (props: TabsProp) => {
         .ant-tabs-card .ant-tabs-tab-active{
             border-width: 1px;
             border-style: solid;
-            border-color: ${position === 'top' ? `${borderColor} ${borderColor} ${backgroundColor} ${borderColor}` :
-        position === 'bottom' ? `${backgroundColor} ${borderColor} ${borderColor} ${borderColor}` :
-            position === 'left' ? `${borderColor} ${backgroundColor} ${borderColor} ${borderColor}` :
-                position === 'right' ? `${borderColor} ${borderColor} ${borderColor} ${backgroundColor}` : ''} !important
+            border-color: ${position === 'top' ? `${borderColor} ${borderColor} ${colorBgContainer} ${borderColor}` :
+        position === 'bottom' ? `${colorBgContainer} ${borderColor} ${borderColor} ${borderColor}` :
+            position === 'left' ? `${borderColor} ${colorBgContainer} ${borderColor} ${borderColor}` :
+                position === 'right' ? `${borderColor} ${borderColor} ${borderColor} ${colorBgContainer}` : ''} !important
         }
         `
     let growStyle = `
@@ -110,18 +115,18 @@ const AntdTabs = (props: TabsProp) => {
     return (
         <ConfigProvider
             theme={{
+                token: {...theme},
                 components: {
                     Tabs: {
-                        ...theme,
-                        itemActiveColor: primaryColor,
-                        itemHoverColor: primaryColor,
-                        itemSelectedColor: primaryColor,
-                        inkBarColor: primaryColor,
-                        colorTextDisabled: RgbaColor(textColor, 0.5),
+                        itemActiveColor: colorPrimary,
+                        itemHoverColor: colorPrimary,
+                        itemSelectedColor: colorPrimary,
+                        inkBarColor: colorPrimary,
+                        colorTextDisabled: RgbaColor(colorText, 0.5),
                         colorBgContainerDisabled: 'transform',
                         cardBg: 'transparent',
                         cardGutter: variant === 'outline' ? 0 : 2,
-                        cardHeight: getSize(size) + 25,
+                        cardHeight: getSize(fontSize) + 25,
                         colorBorderSecondary: 'transparent',
                     },
                 },

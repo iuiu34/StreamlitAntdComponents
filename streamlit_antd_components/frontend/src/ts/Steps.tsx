@@ -20,7 +20,12 @@ interface StepsProp extends BaseProp {
 
 const AntdSteps = (props: StepsProp) => {
     //get data
-    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
+    const theme = getTheme(props);
+const colorPrimary = theme.colorPrimary;
+const colorText = theme.colorText;
+const fontSize = theme.fontSize;
+const fontFamily=theme.fontFamily;
+const colorBgContainer=theme.colorBgContainer;
 
     const items = strToNode(props['items'])
     const index = props['index']
@@ -31,7 +36,7 @@ const AntdSteps = (props: StepsProp) => {
     const return_index = props['return_index']
     const kv = props['kv']
 
-    const primaryLightColor = RgbaColor(primaryColor)
+    const primaryLightColor = RgbaColor(colorPrimary)
 
 
     const [current, setCurrent] = useState(index)
@@ -43,10 +48,10 @@ const AntdSteps = (props: StepsProp) => {
 
     const textStyle = `
     .ant-steps-item-title{
-        font-size:${getSize(size)}px !important
+        font-size:${getSize(fontSize)}px !important
     }
     .ant-steps-item-custom .ant-steps-item-icon .ant-steps-icon{
-        color:${RgbaColor(textColor, 0.5)} !important
+        color:${RgbaColor(colorText, 0.5)} !important
     }
     `
     insertStyle(`sac.steps.style`, textStyle)
@@ -78,21 +83,21 @@ const AntdSteps = (props: StepsProp) => {
     return (
         <ConfigProvider
             theme={{
+                token: {...theme},
                 components: {
                     Steps: {
-                        ...theme,
-                        colorTextLabel: RgbaColor(textColor, 0.5),
-                        colorFillContent: RgbaColor(textColor, 0.1),
-                        colorSplit: RgbaColor(textColor, 0.5),
-                        navArrowColor: RgbaColor(textColor, 0.5),
-                        colorTextDescription: RgbaColor(textColor, 0.5),
+                        colorTextLabel: RgbaColor(colorText, 0.5),
+                        colorFillContent: RgbaColor(colorText, 0.1),
+                        colorSplit: RgbaColor(colorText, 0.5),
+                        navArrowColor: RgbaColor(colorText, 0.5),
+                        colorTextDescription: RgbaColor(colorText, 0.5),
                         controlItemBgActive: primaryLightColor,
-                        customIconFontSize: getSize(size) + 14,
-                        iconFontSize: getSize(size) - 2,
-                        iconSize: getSize(size) + 16,
-                        fontSize: getSize(size) - 2,
-                        dotSize: getSize(size) - 8,
-                        dotCurrentSize: getSize(size) - 6,
+                        customIconFontSize: getSize(fontSize) + 14,
+                        iconFontSize: getSize(fontSize) - 2,
+                        iconSize: getSize(fontSize) + 16,
+                        fontSize: getSize(fontSize) - 2,
+                        dotSize: getSize(fontSize) - 8,
+                        dotCurrentSize: getSize(fontSize) - 6,
                         iconTop: 0,
                         colorIconHover: 'red'
                     },

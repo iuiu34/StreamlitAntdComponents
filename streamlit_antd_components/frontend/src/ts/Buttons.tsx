@@ -32,34 +32,39 @@ interface ButtonProp extends BaseProp {
 
 const AntdButton = (idx: any, type_: any, radius: any, props: ButtonProp, onClick: any, isSelect: boolean, grow: boolean) => {
     //get data
-    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
+    const theme = getTheme(props);
+    const colorPrimary = theme.colorPrimary;
+    const colorText = theme.colorText;
+    const fontSize = theme.fontSize;
+    const fontFamily = theme.fontFamily;
+    const colorBgContainer = theme.colorBgContainer;
 
-    const linkColor = props['color'] != null ? props['color'] : '#1677ff'
+    const linkColor = colorPrimary != null ? colorPrimary : '#1677ff'
 
     let selectStyle = `
         #btn-${idx}.ant-btn-default:not(:disabled):active,#btn-${idx}.ant-btn-dashed:not(:disabled):active {
             color: #fff !important;
-            border-color: ${primaryColor} !important;
-            background: ${primaryColor} !important;
+            border-color: ${colorPrimary} !important;
+            background: ${colorPrimary} !important;
         }
         #btn-${idx}.ant-btn-primary:not(:disabled):active {
-            color: ${primaryColor} !important;
+            color: ${colorPrimary} !important;
             background: transparent !important;
-            border-color: ${primaryColor} !important;
+            border-color: ${colorPrimary} !important;
         }
     `
     let unSelectStyle = `
         #btn-${idx}.ant-btn-primary:not(:disabled):hover{
-            box-shadow: 0 0 3px ${primaryColor}, 0 0 3px rgba(0, 0, 0, .05);
+            box-shadow: 0 0 3px ${colorPrimary}, 0 0 3px rgba(0, 0, 0, .05);
         }
         #btn-${idx}.ant-btn-text:not(:disabled):hover{
-            color:${textColor};
+            color:${colorText};
         }
         #btn-${idx}.ant-btn-text{
-            color:${textColor};
+            color:${colorText};
         }
         #btn-${idx}.ant-btn-text:disabled{
-            color:${RgbaColor(textColor, 0.5)};
+            color:${RgbaColor(colorText, 0.5)};
         }
     `
 
@@ -68,20 +73,20 @@ const AntdButton = (idx: any, type_: any, radius: any, props: ButtonProp, onClic
     return (
         <ConfigProvider
             theme={{
+                token: {...theme},
                 components: {
                     Button: {
-                        ...theme,
-                        colorText: isSelect ? textColor : primaryColor,
-                        colorTextDisabled: RgbaColor(textColor, 0.5),
+                        colorText: isSelect ? colorText : colorPrimary,
+                        colorTextDisabled: RgbaColor(colorText, 0.5),
                         colorBgContainerDisabled: 'transform',
-                        colorPrimaryHover: primaryColor,
-                        colorPrimaryActive: primaryColor,
-                        colorBgTextHover: RgbaColor(textColor, 0.1),
+                        colorPrimaryHover: colorPrimary,
+                        colorPrimaryActive: colorPrimary,
+                        colorBgTextHover: RgbaColor(colorText, 0.1),
                         colorLink: linkColor,
                         colorLinkHover: linkColor,
                         colorLinkActive: linkColor,
-                        // controlHeight: 3 * getSize(size) - 10,
-                        colorBorder: isSelect ? RgbaColor(textColor) : primaryColor,
+                        // controlHeight: 3 * getSize(fontSize) - 10,
+                        colorBorder: isSelect ? RgbaColor(colorText) : colorPrimary,
                         borderRadius: getSize(radius, MartineRadiusSize),
                     },
                 },
@@ -105,7 +110,12 @@ const AntdButton = (idx: any, type_: any, radius: any, props: ButtonProp, onClic
 
 const AntdButtons = (props: ButtonsProp) => {
     //get data
-    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
+    const theme = getTheme(props);
+    const colorPrimary = theme.colorPrimary;
+    const colorText = theme.colorText;
+    const fontSize = theme.fontSize;
+    const fontFamily = theme.fontFamily;
+    const colorBgContainer = theme.colorBgContainer;
 
     const label = props['label']
     const description = props['description']
@@ -124,21 +134,21 @@ const AntdButtons = (props: ButtonsProp) => {
     //load custom style
     let style = `      
         .ant-btn-primary:disabled{
-            color: ${RgbaColor(textColor, 0.5)} !important;
-            background: ${RgbaColor(textColor, 0.1)} !important;
-            border-color: ${RgbaColor(textColor, 0.1)} !important;
+            color: ${RgbaColor(colorText, 0.5)} !important;
+            background: ${RgbaColor(colorText, 0.1)} !important;
+            border-color: ${RgbaColor(colorText, 0.1)} !important;
         }
         .ant-btn-dashed:disabled,.ant-btn-default:disabled{
-            border-color: ${RgbaColor(textColor, 0.1)} !important;
+            border-color: ${RgbaColor(colorText, 0.1)} !important;
         }
         .ant-btn {
-            min-height: ${3 * getSize(size) - 10}px;
-            min-width: ${3 * getSize(size) - 10}px;
+            min-height: ${3 * getSize(fontSize) - 10}px;
+            min-width: ${3 * getSize(fontSize) - 10}px;
             width: ${grow ? '100%' : 'auto'} !important;
-            padding: ${getSize(size) * 0.3}px ${getSize(size) * 0.8}px;
+            padding: ${getSize(fontSize) * 0.3}px ${getSize(fontSize) * 0.8}px;
         }
         .ant-btn.ant-btn-icon-only{
-            padding:${getSize(size) * 0.3}px
+            padding:${getSize(fontSize) * 0.3}px
         }
         .ant-space-compact .ant-btn{
             flex-grow:${grow ? 1 : undefined}
@@ -184,10 +194,10 @@ const AntdButtons = (props: ButtonsProp) => {
     const buttonGroup = items.map((item: any, idx) => {
             let otherType = ['primary', 'default'].find((x) => x !== variant)
             let type_: any = index != null ? selected === idx ? otherType : variant : variant
-            item.color = item.color != null ? item.color : color
-            item.background_color = item.background_color != null ? item.background_color : backgroundColor
-            item.size = item.size != null ? item.size : size
-            item.font = item.font != null ? item.font : font
+            item.primary_color = item.primary_color != null ? item.primary_color : colorPrimary
+            item.background_color = item.background_color != null ? item.background_color : colorBgContainer
+            item.font_size = item.fontsize != null ? item.font_size : fontSize
+            item.font_family = item.font_family != null ? item.font_family : fontFamily
             return AntdButton(idx, type_, radius, item, onClick, index != null, grow)
         }
     )
@@ -197,7 +207,7 @@ const AntdButtons = (props: ButtonsProp) => {
         <LabelWrap
             label={label}
             desc={description}
-            size={size}
+            fontSize={fontSize}
             align={align}
             grow={grow}
             children={

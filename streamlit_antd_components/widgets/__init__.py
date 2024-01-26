@@ -31,3 +31,4 @@ from .color_picker import color_picker as experimental_color_picker
 from .phone_number import phone_number as experimental_phone_number
 from .qr_code import qr_code as experimental_qr_code
 from .theme import theme as experimental_theme
+from .markdown import markdown as experimental_markdown

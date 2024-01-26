@@ -25,7 +25,12 @@ interface PaginationProp extends BaseProp {
 
 const AntdPagination = (props: PaginationProp) => {
     //get data
-    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
+    const theme = getTheme(props);
+const colorPrimary = theme.colorPrimary;
+const colorText = theme.colorText;
+const fontSize = theme.fontSize;
+const fontFamily=theme.fontFamily;
+const colorBgContainer=theme.colorBgContainer;
 
     const total = props['total'];
     const index = props['index'];
@@ -39,7 +44,7 @@ const AntdPagination = (props: PaginationProp) => {
     const simple = props['simple'];
     const disabled = props['disabled'];
     const show_total = props['show_total'];
-    const primaryLightColor = RgbaColor(primaryColor)
+    const primaryLightColor = RgbaColor(colorPrimary)
 
     const [current, setCurrent] = useState(index);
 
@@ -49,10 +54,10 @@ const AntdPagination = (props: PaginationProp) => {
 
     const textStyle = `
     .ant-pagination-item-active{
-        border-color: ${variant === 'light' ? primaryLightColor : primaryColor} !important
+        border-color: ${variant === 'light' ? primaryLightColor : colorPrimary} !important
     }
     .ant-pagination-item-active a{
-        color: ${variant === 'filled' ? '#fff' : primaryColor} !important
+        color: ${variant === 'filled' ? '#fff' : colorPrimary} !important
     }
     .ant-pagination-options-quick-jumper input{
         border-radius: ${getSize(radius, MartineRadiusSize)}px;
@@ -60,13 +65,13 @@ const AntdPagination = (props: PaginationProp) => {
         width:auto !important
     }
     .ant-pagination-item-ellipsis{
-        color:${RgbaColor(textColor)} !important
+        color:${RgbaColor(colorText)} !important
     }
     .ant-pagination-item-link[disabled]{
-        color:${RgbaColor(textColor)} !important
+        color:${RgbaColor(colorText)} !important
     }
     .ant-pagination-item-link,.ant-pagination-item-link-icon{
-        font-size:${getSize(size)}px !important
+        font-size:${getSize(fontSize)}px !important
     }
     `
     insertStyle(`sac.pagination.style`, textStyle)
@@ -98,12 +103,12 @@ const AntdPagination = (props: PaginationProp) => {
     //previous and next button
     const itemRender: PaginationProps['itemRender'] = (_, type, originalElement) => {
         if (type === 'prev' && previous !== null) {
-            return <button className={'ant-pagination-item-link px-2'} style={{fontSize: getSize(size)}}>
+            return <button className={'ant-pagination-item-link px-2'} style={{fontSize: getSize(fontSize)}}>
                 {previous}
             </button>
         }
         if (type === 'next' && next !== null) {
-            return <button className={'ant-pagination-item-link px-2'} style={{fontSize: getSize(size)}}>
+            return <button className={'ant-pagination-item-link px-2'} style={{fontSize: getSize(fontSize)}}>
                 {next}
             </button>
         }
@@ -113,21 +118,21 @@ const AntdPagination = (props: PaginationProp) => {
     return (
         <ConfigProvider
             theme={{
+                token: {...theme},
                 components: {
                     Pagination: {
-                        ...theme,
-                        itemActiveBg: variant === 'outline' ? 'transform' : variant === 'light' ? primaryLightColor : primaryColor,
-                        colorPrimaryHover: primaryColor,
-                        colorBgTextHover: RgbaColor(textColor),
-                        colorBgTextActive: RgbaColor(textColor, 0.25),
+                        itemActiveBg: variant === 'outline' ? 'transform' : variant === 'light' ? primaryLightColor : colorPrimary,
+                        colorPrimaryHover: colorPrimary,
+                        colorBgTextHover: RgbaColor(colorText),
+                        colorBgTextActive: RgbaColor(colorText, 0.25),
                         borderRadius: getSize(radius, MartineRadiusSize),
                         controlOutlineWidth: 0,
-                        colorBorder: RgbaColor(textColor, 0.3),
-                        itemSize: 3 * getSize(size) - 16,
-                        controlHeight: 3 * getSize(size) - 18,
-                        colorTextDisabled: RgbaColor(textColor),
-                        controlItemBgActiveDisabled: RgbaColor(textColor, 0.1),
-                        colorBgContainerDisabled: RgbaColor(textColor, 0.1),
+                        colorBorder: RgbaColor(colorText, 0.3),
+                        itemSize: 3 * getSize(fontSize) - 16,
+                        controlHeight: 3 * getSize(fontSize) - 18,
+                        colorTextDisabled: RgbaColor(colorText),
+                        controlItemBgActiveDisabled: RgbaColor(colorText, 0.1),
+                        colorBgContainerDisabled: RgbaColor(colorText, 0.1),
                     },
                 },
             }}
